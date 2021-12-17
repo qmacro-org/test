@@ -11,8 +11,8 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
+          username: ${{secrets.MAIL_USERNAME_REPO}}
+          password: ${{secrets.MAIL_PASSWORD_REPO}}
           # Required mail subject:
           subject: Github Actions job result
           to: qmacro@gmail.com
