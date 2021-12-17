@@ -1,0 +1,10 @@
+---
+on:
+  workflow_dispatch:
+jobs:
+  main:
+    runs-on: self-hosted
+    steps:
+
+      - name: Env
+        run: env
