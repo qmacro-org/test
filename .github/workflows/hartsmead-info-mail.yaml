@@ -26,6 +26,6 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Harts Mead Available Plots
-          to: qmacro@gmail.com
+          to: qmacro@gmail.com,michellexadams@gmail.com
           from: qmacro automation <qmacrodev@gmail.com>
           html_body: file://hartsmead.html
