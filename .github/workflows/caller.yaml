@@ -8,5 +8,4 @@ jobs:
     uses: qmacro-org/automation/.github/workflows/called.yaml@main
     with:
       username: The Caller
-    secrets:
-      mysecret: banana
+    secrets: inherit
