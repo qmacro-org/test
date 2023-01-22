@@ -20,12 +20,7 @@ jobs:
           | jq . \
           > issues.json
 
-      - name: Check for changes (fail if none)
-        run: |
-          ! git diff --quiet
-
-      - name: Commit changes if required
-        if: ${{ success() }}
+      - name: Commit changes 
         run: |
           git config --global user.email "qmacro-bot@example.com"
           git config --global user.name "qmacro bot"
