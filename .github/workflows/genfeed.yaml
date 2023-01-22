@@ -1,0 +1,34 @@
+name: feed builder
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Add jq
+        run: apt update && apt install jq -y
+
+      - name: create feed file
+        run: |
+          gh issue list --state open --limit 250 --json title,body,updatedAt \
+          | jq . \
+          > issues.json
+
+      - name: Check for changes (fail if none)
+        run: |
+          ! git diff --quiet
+
+      - name: Commit changes if required
+        if: ${{ success() }}
+        run: |
+          git config --global user.email "qmacro-bot@example.com"
+          git config --global user.name "qmacro bot"
+          git add . 
+          git commit -m 'rebuild of feed' || exit 0
+          git push
