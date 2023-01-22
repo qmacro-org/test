@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Add jq
         run: sudo apt-get update && sudo apt-get install jq -y
@@ -18,7 +18,7 @@ jobs:
         run: |
           gh issue list --state open --limit 250 --json title,body,updatedAt \
           | jq . \
-          > issues.json
+          | tee issues.json
 
       - name: Commit changes 
         run: |
