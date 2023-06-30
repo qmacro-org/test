@@ -1,4 +1,5 @@
 ---
+name: label-contribution
 on:
   issues:
     types: [labeled]

@@ -1,4 +1,5 @@
 ---
+name: label-any
 on:
   issues:
     types: [labeled]
