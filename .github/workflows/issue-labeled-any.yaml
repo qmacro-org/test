@@ -5,6 +5,7 @@ on:
 
 jobs:
   main:
+    runs-on: ubuntu-22.04
     if: contains(github.repositoryUrl, 'github.com')
     steps:
 

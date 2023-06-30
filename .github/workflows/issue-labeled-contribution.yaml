@@ -5,6 +5,7 @@ on:
 
 jobs:
   main:
+    runs-on: ubuntu-22.04
     env:
       LABEL: "contribution"
     if: contains(github.repositoryUrl, 'github.com') && github.event.label.name == $LABEL
