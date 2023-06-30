@@ -4,16 +4,22 @@ on:
   issues:
     types: [labeled]
 
+
 jobs:
   main:
+
     runs-on: ubuntu-22.04
+
     env:
       LABEL: "contribution"
-    if: contains(github.repositoryUrl, 'github.com') && github.event.label.name == $LABEL
+      GITHUB_CONTEXT: ${{ tojson(github.event) }}
+
+    if: contains(github.repositoryUrl, 'github.com') && github.event.label.name == 'contribution'
+
     steps:
 
       - name: Show the label value
         run: echo "Label is $LABEL"
 
       - name: Emit event context
-        run: echo "${{ toJSON(github.event) }}"
+        run: echo "$GITHUB_CONTEXT"
