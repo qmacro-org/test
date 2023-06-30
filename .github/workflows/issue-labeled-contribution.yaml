@@ -1,0 +1,17 @@
+---
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  main:
+    env:
+      LABEL: "contribution"
+    if: contains(github.repositoryUrl, 'github.com') && github.event.label.name == $LABEL
+    steps:
+
+      - name: Show the label value
+        run: echo "Label is $LABEL"
+
+      - name: Emit event context
+        run: echo "${{ toJSON(github.event) }}"

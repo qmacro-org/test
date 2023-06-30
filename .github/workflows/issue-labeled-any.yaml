@@ -1,0 +1,12 @@
+---
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  main:
+    if: contains(github.repositoryUrl, 'github.com')
+    steps:
+
+      - name: Emit event context
+        run: echo "${{ toJSON(github.event) }}"
