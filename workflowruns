@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+declare ORG REPO
+readonly CACHE=1m 
+readonly ME="$(basename $0)"
+
+call_api() {
+
+  gh api --cache "$CACHE" "/repos/${ORG}/${REPO}$1"
+
+}
+
+set_org_repo() {
+
+  ORG="${GITHUB_ORG:-$1}"
+  REPO="${GITHUB_REPO:-$2}"
+
+}
+
+select_run() {
+
+  call_api "/actions/runs" \
+    | jq --raw-output '
+        .workflow_runs[]
+        | [
+            .id,
+            (.run_started_at | gsub("[TZ]";" ")),
+            .name,
+            .display_title,
+            .status,
+            .conclusion,
+            .event,
+            .triggering_actor.login
+          ]
+        | @csv
+      ' \
+    | mlr \
+        --icsv \
+        --opprint \
+        cat \
+    | fzf
+
+}
+
+
+main() {
+
+  local run
+  set_org_repo "$@"
+  select_run
+
+}
+
+main "$@"
