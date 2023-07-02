@@ -12,14 +12,15 @@ jobs:
 
     env:
       LABEL: "contribution"
-      GITHUB_CONTEXT: ${{ tojson(github.event) }}
 
     if: contains(github.repositoryUrl, 'github.com') && github.event.label.name == 'contribution'
 
     steps:
 
+      - name: GITHUB_EVENT
+        env:
+          GITHUB_EVENT: ${{ tojson(github.event) }}
+        run: true
+
       - name: Show the label value
         run: echo "Label is $LABEL"
-
-      - name: Emit event context
-        run: echo "$GITHUB_CONTEXT"
