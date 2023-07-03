@@ -40,7 +40,15 @@ select_run() {
         --icsv \
         --opprint \
         cat \
-    | fzf
+    | fzf \
+    | cut -d ' ' -f 1
+
+}
+
+download_run_logs() {
+
+  local run_id=$1
+  call_api "/actions/runs/$run_id/logs"
 
 }
 
@@ -49,7 +57,8 @@ main() {
 
   local run
   set_org_repo "$@"
-  select_run
+  run="$(select_run)"
+  download_run_logs "$run"
 
 }
 
